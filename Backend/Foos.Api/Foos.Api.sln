@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Database.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Operations.Tests", "Foos.Api.Operations.Tests\Foos.Api.Operations.Tests.csproj", "{8AB997E5-8FCE-427B-9C9C-003556FCEFA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foos.Api.Contracts", "Foos.Api.Contracts\Foos.Api.Contracts.csproj", "{7B088926-2741-4ECC-B8DD-7401BFA2FEE0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{8AB997E5-8FCE-427B-9C9C-003556FCEFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB997E5-8FCE-427B-9C9C-003556FCEFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB997E5-8FCE-427B-9C9C-003556FCEFA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B088926-2741-4ECC-B8DD-7401BFA2FEE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B088926-2741-4ECC-B8DD-7401BFA2FEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B088926-2741-4ECC-B8DD-7401BFA2FEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B088926-2741-4ECC-B8DD-7401BFA2FEE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
