@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BunFooLib.Api.Shared.Repository.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,17 @@ namespace BunFooLib.Api.Shared.Repository
             _dbContext = dbContext;
         }
 
-        public virtual TEntity? GetById(int id)
+        public virtual TEntity? ReadById(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
         }
 
-        public virtual IEnumerable<TEntity> List()
+        public virtual IEnumerable<TEntity> Read()
         {
             return _dbContext.Set<TEntity>().AsEnumerable();
         }
 
-        public virtual IEnumerable<TEntity> List(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public virtual IEnumerable<TEntity> ReadByExpression(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
             return _dbContext.Set<TEntity>()
                    .Where(predicate)
@@ -47,7 +48,7 @@ namespace BunFooLib.Api.Shared.Repository
             _dbContext.SaveChanges();
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual void Create(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
             _dbContext.SaveChanges();
