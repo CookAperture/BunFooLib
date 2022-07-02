@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BunFooLib.Api.Shared.Repository
 {
-    internal class Repository<TEntity, TContext> : IRepository<TEntity> 
+    public class Repository<TEntity, TContext> : IRepository<TEntity> 
         where TEntity : class 
         where TContext : DbContext
     {
@@ -19,39 +19,39 @@ namespace BunFooLib.Api.Shared.Repository
             _dbContext = dbContext;
         }
 
-        public virtual TEntity? ReadById(int id)
+        public virtual async Task<TEntity?> ReadById(int id)
         {
-            return _dbContext.Set<TEntity>().Find(id);
+            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
-        public virtual IEnumerable<TEntity> Read()
+        public virtual async Task<IEnumerable<TEntity>> Read()
         {
-            return _dbContext.Set<TEntity>().AsEnumerable();
+            return await _dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public virtual IEnumerable<TEntity> ReadByExpression(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<IEnumerable<TEntity>> ReadByExpression(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
-            return _dbContext.Set<TEntity>()
+            return await _dbContext.Set<TEntity>()
                    .Where(predicate)
-                   .AsEnumerable();
+                   .ToListAsync();
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual async Task Update(TEntity entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public virtual void Delete(TEntity entity)
+        public virtual async Task Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public virtual void Create(TEntity entity)
+        public virtual async Task Create(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

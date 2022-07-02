@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Database", "Foos.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Operations", "Foos.Api.Operations\Foos.Api.Operations.csproj", "{BC44B2A5-96E9-4C3F-BE00-63CDEF14285E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Tests", "Foos.Api.Tests\Foos.Api.Tests.csproj", "{D7328DBC-2184-40FD-8182-AA6B023C8BAA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Database.Tests", "Foos.Api.Database.Tests\Foos.Api.Database.Tests.csproj", "{4C91A2E8-C320-4E13-8AC8-424837E8F596}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foos.Api.Operations.Tests", "Foos.Api.Operations.Tests\Foos.Api.Operations.Tests.csproj", "{8AB997E5-8FCE-427B-9C9C-003556FCEFA6}"
@@ -33,10 +31,6 @@ Global
 		{BC44B2A5-96E9-4C3F-BE00-63CDEF14285E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC44B2A5-96E9-4C3F-BE00-63CDEF14285E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC44B2A5-96E9-4C3F-BE00-63CDEF14285E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7328DBC-2184-40FD-8182-AA6B023C8BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7328DBC-2184-40FD-8182-AA6B023C8BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7328DBC-2184-40FD-8182-AA6B023C8BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7328DBC-2184-40FD-8182-AA6B023C8BAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C91A2E8-C320-4E13-8AC8-424837E8F596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C91A2E8-C320-4E13-8AC8-424837E8F596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C91A2E8-C320-4E13-8AC8-424837E8F596}.Release|Any CPU.ActiveCfg = Release|Any CPU

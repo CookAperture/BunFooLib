@@ -5,14 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>default</LangVersion>
+    <PackageVersion>1.0.2</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BunFooLib.Api.Shared.Repository.Contracts\BunFooLib.Api.Shared.Repository.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
