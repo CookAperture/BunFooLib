@@ -10,7 +10,7 @@ namespace BunFooLib.Api.Shared.Repository.Contracts
     public interface IRepository<TEntity> where TEntity : class
     {
         Task Create(TEntity entity);
-        Task<TEntity?> ReadById(int id);
+        Task<TEntity> ReadById(int id);
         Task<IEnumerable<TEntity>>Read();
         Task<IEnumerable<TEntity>> ReadByExpression(Expression<Func<TEntity, bool>> predicate);
         Task Update(TEntity entity);

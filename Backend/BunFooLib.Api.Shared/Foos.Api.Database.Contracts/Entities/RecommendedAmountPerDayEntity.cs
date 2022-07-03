@@ -7,7 +7,7 @@ namespace Foos.Api.Database.Contracts.Entities
         [Required]
         public int ID { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string Amount { get; set; }
         [Required]
         public MeasurementEntity Measurement { get; set; }
     }

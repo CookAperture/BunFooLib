@@ -19,7 +19,7 @@ namespace BunFooLib.Api.Shared.Repository
             _dbContext = dbContext;
         }
 
-        public virtual async Task<TEntity?> ReadById(int id)
+        public virtual async Task<TEntity> ReadById(int id)
         {
             return await _dbContext.Set<TEntity>().FindAsync(id);
         }
