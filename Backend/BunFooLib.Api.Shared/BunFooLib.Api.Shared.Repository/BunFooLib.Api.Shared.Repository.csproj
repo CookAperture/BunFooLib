@@ -1,17 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>default</LangVersion>
-    <PackageVersion>1.0.4</PackageVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<LangVersion>default</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.226" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="G:\Repositories\MyRepos\LocalNuGetManager\LocalNuGetManager\LocalNuGetManager\bin\Debug\net6.0\LocalNuGetManager.exe $(TargetName) $(ProjectDir)" />
+	</Target>
 
 </Project>

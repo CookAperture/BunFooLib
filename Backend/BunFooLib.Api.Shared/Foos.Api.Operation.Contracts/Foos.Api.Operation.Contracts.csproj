@@ -4,8 +4,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  	<Exec Command="G:\Repositories\MyRepos\LocalNuGetManager\LocalNuGetManager\LocalNuGetManager\bin\Debug\net6.0\LocalNuGetManager.exe $(TargetName) $(ProjectDir)" />
+  </Target>
+  
 </Project>
