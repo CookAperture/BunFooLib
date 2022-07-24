@@ -28,7 +28,7 @@ namespace Foos.Api.Controllers
             return Ok(_mapper.Map<IEnumerable<FooCategoryDto>>(hotelEntities));
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(FooCategoryDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<FooCategoryDto>> GetFooCategory(int id)
@@ -100,7 +100,7 @@ namespace Foos.Api.Controllers
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteHotelEntity(int id)
+        public async Task<IActionResult> DeleteFooCategoryEntity(int id)
         {
             var hotelEntity = await _fooCategoryRepository.ReadById(id);
 

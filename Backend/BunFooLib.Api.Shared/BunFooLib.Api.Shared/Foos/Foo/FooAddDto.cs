@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BunFooLib.Api.Shared.Dto.Foos.Foo
 {
-    public class FooAddDto
+    public class FooAddDto : BaseDto
     {
-        [Required]
-        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

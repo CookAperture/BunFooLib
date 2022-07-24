@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BunFooLib.Api.Shared.Dto.Foos.RecommendedAmountPerDay
 {
-    public class RecommendedAmountPerDayDto
+    public class RecommendedAmountPerDayDto : BaseDto
     {
-        [Required]
-        public int ID { get; set; }
         [Required]
         public string Amount { get; set; }
         [Required]

@@ -2,7 +2,7 @@
 
 namespace BunFooLib.Api.Shared.Dto.Foos.Measurement
 {
-    public class MeasurementAddDto
+    public class MeasurementAddDto : BaseDto
     {
         [Required]
         public string Name { get; set; }

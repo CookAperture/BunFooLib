@@ -2,7 +2,7 @@
 
 namespace BunFooLib.Api.Shared.Dto.Foos.RecommendedAmountPerDay
 {
-    public class RecommendedAmountPerDayAddDto
+    public class RecommendedAmountPerDayAddDto : BaseDto
     {
         [Required]
         public string Amount { get; set; }

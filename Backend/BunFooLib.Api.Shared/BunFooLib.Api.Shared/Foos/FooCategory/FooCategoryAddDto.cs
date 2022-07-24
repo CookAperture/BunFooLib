@@ -2,7 +2,7 @@
 
 namespace BunFooLib.Api.Shared.Dto.Foos.FooCategory
 {
-    public class FooCategoryAddDto
+    public class FooCategoryAddDto : BaseDto
     {
         [Required]
         public string Name { get; set; }
