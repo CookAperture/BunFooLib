@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
-    <PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.228" />
-    <PackageReference Include="Foos.Api.Operation.Contracts" Version="1.0.4" />
+    <PackageReference Include="BunFooLib.Api.Shared.Dto" Version="1.0.4" />
+    <PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.4" />
+    <PackageReference Include="Foos.Api.Operation.Contracts" Version="1.0.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

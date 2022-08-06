@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.*" />
+		<PackageReference Include="BunFooLib.Api.Shared.Repository.Contracts" Version="1.0.4" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

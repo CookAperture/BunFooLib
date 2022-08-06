@@ -1,9 +1,6 @@
-using AutoMapper;
 using BunFooLib.Api.Shared.Dto.Foos.FooCategory;
-using Foos.Api.Database.Contracts;
-using Foos.Api.Database.Contracts.Entities;
+using Foos.Api.Operation.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Foos.Api.Controllers
 {
@@ -11,21 +8,19 @@ namespace Foos.Api.Controllers
     [ApiController]
     public class FooCategoriesController : ControllerBase
     {
-        private readonly IFooCategoryRepository _fooCategoryRepository;
-        private readonly IMapper _mapper;
+        private readonly IFooCategoryService _crudService;
 
-        public FooCategoriesController(IMapper mapper, IFooCategoryRepository fooCategoryRepository)
+        public FooCategoriesController(IFooCategoryService crudService)
         {
-            _fooCategoryRepository = fooCategoryRepository;
-            _mapper = mapper;
+            _crudService = crudService;
         }
         
         [HttpGet]
         [ProducesResponseType(typeof(FooCategoryDto[]), 200)]
         public async Task<ActionResult<IEnumerable<FooCategoryDto>>> GetFooCategories()
         {
-            var hotelEntities = await _fooCategoryRepository.Read();
-            return Ok(_mapper.Map<IEnumerable<FooCategoryDto>>(hotelEntities));
+            var fooCategoryDto = await _crudService.ReadAllAsync<FooCategoryDto>();
+            return Ok(fooCategoryDto);
         }
         
         [HttpGet("{id:int}")]
@@ -33,14 +28,8 @@ namespace Foos.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<FooCategoryDto>> GetFooCategory(int id)
         {
-            var hotelEntity = await _fooCategoryRepository.ReadById(id);
-
-            if (hotelEntity == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(_mapper.Map<FooCategoryDto>(hotelEntity));
+            var fooCategoryDto = await _crudService.ReadAsync<FooCategoryDto>(id);
+            return Ok(fooCategoryDto);
         }
 
         // PUT: api/Hotels/5
@@ -51,33 +40,7 @@ namespace Foos.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutFooCategory(int id, FooCategoryAddDto updateHotelDto)
         {
-            var hotelEntity = await _fooCategoryRepository.ReadById(id);
-
-            if (hotelEntity == null)
-            {
-                return NotFound();
-            }
-
-            if (id != hotelEntity.ID)
-            {
-                return BadRequest();
-            }
-
-            _mapper.Map(updateHotelDto, hotelEntity);
-
-            try
-            {
-                await _fooCategoryRepository.Update(hotelEntity);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!await FooCategoryEntityExists(id))
-                {
-                    return NotFound();
-                }
-                throw;
-            }
-
+            await _crudService.UpdateAsync(id, updateHotelDto);
             return NoContent();
         }
 
@@ -85,38 +48,23 @@ namespace Foos.Api.Controllers
         // To protect from over posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<FooCategoryDto>> PostFooCategory(FooCategoryAddDto hotelDto)
+        public async Task<ActionResult<FooCategoryDto>> PostFooCategory(FooCategoryAddDto fooCategoryAddDto)
         {
-            var hotelEntity = _mapper.Map<FooCategoryEntity>(hotelDto);
-            await _fooCategoryRepository.Create(hotelEntity);
+            var addedFooCategory = await _crudService.CreateAsync<FooCategoryDto, FooCategoryAddDto>(fooCategoryAddDto);
 
             return CreatedAtAction("GetFooCategory", new
             {
-                id = hotelEntity.ID,
-            }, hotelEntity);
+                id = addedFooCategory.Id,
+            }, addedFooCategory);
         }
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteFooCategoryEntity(int id)
         {
-            var hotelEntity = await _fooCategoryRepository.ReadById(id);
-
-            if (hotelEntity == null)
-            {
-                return NotFound();
-            }
-
-            await _fooCategoryRepository.Delete(hotelEntity);
-
+            await _crudService.DeleteAsync(id);
             return NoContent();
-        }
-
-        private async Task<bool> FooCategoryEntityExists(int id)
-        {
-            return await _fooCategoryRepository.ReadById(id) != null;
         }
     }
 }

@@ -1,5 +1,6 @@
 using Foos.Api.Configurations;
 using Foos.Api.Database.Extensions;
+using Foos.Api.Operations.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLogging();
 
 builder.Services.AddDatabaseOperations(builder.Configuration, "FoosDbConnectionString");
+builder.Services.AddOperations();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

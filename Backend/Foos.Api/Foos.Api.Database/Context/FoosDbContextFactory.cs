@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.Configuration;
 
 namespace Foos.Api.Database.Context
 {
@@ -9,7 +8,7 @@ namespace Foos.Api.Database.Context
     {
         public FoosDbContext CreateDbContext(string[] args)
         {
-            var builder = new ConfigurationBuilder().AddJsonFile("G:\\Repositories\\MyRepos\\BunFooLib\\Backend\\Foos.Api\\Foos.Api\\appsettings.json", false, false);
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, false);
             
             var configuration = builder.Build();
             

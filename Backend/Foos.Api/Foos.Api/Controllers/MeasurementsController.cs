@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using BunFooLib.Api.Shared.Dto.Foos.Measurement;
-using Foos.Api.Database.Contracts;
-using Foos.Api.Database.Contracts.Entities;
+﻿using BunFooLib.Api.Shared.Dto.Foos.Measurement;
+using Foos.Api.Operation.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Foos.Api.Controllers
 {
@@ -11,21 +8,19 @@ namespace Foos.Api.Controllers
     [ApiController]
     public class MeasurementsController : ControllerBase
     {
-        private readonly IMeasurementRepository _measurementRepository;
-        private readonly IMapper _mapper;
+        private readonly IMeasurementService _crudService;
 
-        public MeasurementsController(IMapper mapper, IMeasurementRepository measurementRepository)
+        public MeasurementsController(IMeasurementService crudService)
         {
-            _measurementRepository = measurementRepository;
-            _mapper = mapper;
+            _crudService = crudService;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(MeasurementDto[]), 200)]
         public async Task<ActionResult<IEnumerable<MeasurementDto>>> GetMeasurements()
         {
-            var measurementEntities = await _measurementRepository.Read();
-            return Ok(_mapper.Map<IEnumerable<MeasurementDto>>(measurementEntities));
+            var measurementEntities = await _crudService.ReadAllAsync<MeasurementDto>();
+            return Ok(measurementEntities);
         }
 
         [HttpGet("{id:int}")]
@@ -33,14 +28,8 @@ namespace Foos.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<MeasurementDto>> GetMeasurement(int id)
         {
-            var measurementEntity = await _measurementRepository.ReadById(id);
-
-            if (measurementEntity == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(_mapper.Map<MeasurementDto>(measurementEntity));
+            var measurementEntity = await _crudService.ReadAsync<MeasurementDto>(id);
+            return Ok(measurementEntity);
         }
 
         // PUT: api/Hotels/5
@@ -49,35 +38,9 @@ namespace Foos.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutMeasurement(int id, MeasurementAddDto updateHotelDto)
+        public async Task<IActionResult> PutMeasurement(int id, MeasurementAddDto measurementAddDto)
         {
-            var measurementEntity = await _measurementRepository.ReadById(id);
-
-            if (measurementEntity == null)
-            {
-                return NotFound();
-            }
-
-            if (id != measurementEntity.ID)
-            {
-                return BadRequest();
-            }
-
-            _mapper.Map(updateHotelDto, measurementEntity);
-
-            try
-            {
-                await _measurementRepository.Update(measurementEntity);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!await MeasurementEntityExists(id))
-                {
-                    return NotFound();
-                }
-                throw;
-            }
-
+            await _crudService.UpdateAsync(id, measurementAddDto);
             return NoContent();
         }
 
@@ -85,15 +48,14 @@ namespace Foos.Api.Controllers
         // To protect from over posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<MeasurementDto>> PostMeasurement(MeasurementAddDto hotelDto)
-        {
-            var measurementEntity = _mapper.Map<MeasurementEntity>(hotelDto);
-            await _measurementRepository.Create(measurementEntity);
+        public async Task<ActionResult<MeasurementDto>> PostMeasurement(MeasurementAddDto measurementAddDto)
+        { 
+            var measurementDto = await _crudService.CreateAsync<MeasurementDto, MeasurementAddDto>(measurementAddDto);
 
             return CreatedAtAction("GetMeasurement", new
             {
-                id = measurementEntity.ID,
-            }, measurementEntity);
+                id = measurementDto.Id,
+            }, measurementDto);
         }
 
         // DELETE: api/Hotels/5
@@ -102,21 +64,8 @@ namespace Foos.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMeasurement(int id)
         {
-            var hotelEntity = await _measurementRepository.ReadById(id);
-
-            if (hotelEntity == null)
-            {
-                return NotFound();
-            }
-
-            await _measurementRepository.Delete(hotelEntity);
-
+            await _crudService.DeleteAsync(id);
             return NoContent();
-        }
-
-        private async Task<bool> MeasurementEntityExists(int id)
-        {
-            return await _measurementRepository.ReadById(id) != null;
         }
     }
 }

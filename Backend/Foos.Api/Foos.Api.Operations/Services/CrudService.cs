@@ -5,7 +5,7 @@ using Foos.Api.Operation.Contracts;
 
 namespace Foos.Api.Operations.Services
 {
-    public class CrudService<TEntity> : ICrudService
+    public class CrudService<TEntity> : ICrudService<TEntity>
         where TEntity : class
     {
         private readonly IRepository<TEntity> _repository;
@@ -17,7 +17,7 @@ namespace Foos.Api.Operations.Services
             _mapper = mapper;
         }
         
-        public async Task<TDto> CreateAsync<TDto, TAddDto>(TAddDto addDto)
+        public virtual async Task<TDto> CreateAsync<TDto, TAddDto>(TAddDto addDto)
             where TDto : BaseDto
             where TAddDto : BaseDto
         {
@@ -26,13 +26,18 @@ namespace Foos.Api.Operations.Services
             return _mapper.Map<TDto>(entity);
         }
         
-        public async Task<TDto> ReadAsync<TDto>(int id) where TDto : BaseDto
+        public virtual async Task<TDto> ReadAsync<TDto>(int id) where TDto : BaseDto
         {
             var entity = await _repository.ReadById(id);
             return _mapper.Map<TDto>(entity);
         }
-        
-        public async Task UpdateAsync<TAddDto>(int id, TAddDto addDto)
+        public virtual async Task<IEnumerable<TDto>> ReadAllAsync<TDto>() where TDto : BaseDto
+        {
+            var entities = await _repository.Read();
+            return _mapper.Map<IEnumerable<TDto>>(entities);
+        }
+
+        public virtual async Task UpdateAsync<TAddDto>(int id, TAddDto addDto)
             where TAddDto : BaseDto
         {
             var entity = await _repository.ReadById(id);
@@ -47,7 +52,7 @@ namespace Foos.Api.Operations.Services
             await _repository.Update(entity);
             }
         
-        public async Task DeleteAsync(int id)
+        public virtual async Task DeleteAsync(int id)
         {
             var entity = await _repository.ReadById(id);
 
